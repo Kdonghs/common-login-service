@@ -1,4 +1,4 @@
 # loginAPI
 RestAPI studty <br>
-1. login, create acount, search ID, search PW, id list<br>
-jap, h2, springBoot, thymleaf, springBootWeb, lombok
+Function: login, create acount, search ID, search PW, id list <br>
+Tech Stack: jap, h2, springBoot, thymleaf, springBootWeb, lombok
