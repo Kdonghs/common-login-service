@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계정 생성</title>
+    <script>
+        function infoCheck(){
+            var i = document.info
+
+            if (i.id.value ==""){
+                alert("아이디를 입력하세요")
+                i.id.focus()
+                 return false
+            }
+            if (i.password.value ==""){
+                alert("비밀번호를 입력하세요")
+                i.password.focus()
+                return false
+            }
+            if (i.passRe.value ==""){
+                alert("비밀번호 확인을 입력하세요")
+                i.passRe.focus()
+                return false
+            }
+            if (i.age.value ==""){
+                alert("나이를 입력하세요")
+                i.age.focus()
+                return false
+            }
+            if (i.name.value ==""){
+                alert("이름을 입력하세요")
+                i.name.focus()
+                return false
+            }
+            if (i.email.value ==""){
+                alert("이메일을 입력하세요")
+                i.email.focus()
+                return false
+            }
+
+            if (i.password.value != i.passRe.value){
+                alert("비밀번호가 일치하지 않습니다")
+                i.password.focus()
+                return false
+            }
+            i.submit()
+        }
+    </script>
+</head>
+<body>
+<h2>회원가입 폼</h2>
+<form name="info" method="post" onsubmit="return infoCheck()" action="/createAccount/createAccountAction">
+    <table>
+        <tr>
+            <td>아이디:</td>
+            <td><input type="text" name="id"></td>
+        </tr>
+        <tr>
+            <td>비밀번호:</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>비밀번호확인:</td>
+            <td><input type="password" name="passRe"></td>
+        </tr>
+        <tr>
+            <td>나이:</td>
+            <td><input type="text" name="age"></td>
+        </tr>
+        <tr>
+            <td>이름:</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td>이메일:</td>
+            <td><input type="email" name="email"></td>
+        </tr>
+        <tr>
+            <td>권한:</td>
+            <td><select name="roleType">
+                <option value="ADMIN">관리자</option>
+                <option selected value="USER">일반사용자</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="right"><button type="submit">확인</button> <button type="reset">초기화</button></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

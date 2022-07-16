@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <script>
+        function inputCheck(){
+            var i = document.IP
+
+            if (i.id.value ==""){
+                alert("아이디를 입력하세요")
+                i.id.focus()
+                return false
+            }
+            if (i.password.value ==""){
+                alert("비밀번호를 입력하세요")
+                i.password.focus()
+                return false
+            }
+            i.onsubmit;
+        }
+    </script>
+</head>
+<body>
+<h2>로그인</h2>
+<hr>
+<form action="/createAccount/createAccount" method="post" name="IP">
+    <table>
+        <tr>
+            <td>아이디:</td>
+            <td><input type="text" name="id" size="20" placeholder="아이디를 입력하세요"></td>
+        </tr>
+        <tr>
+            <td>비밀번호:</td>
+            <td><input type="password" name="password" size="20" placeholder="비밀번호를 입력하세요"></td>
+        </tr>
+    </table>
+
+    <button type="submit">로그인</button>
+    <button type="reset">취소</button>
+    <button type="button" onclick="window.history.back()">뒤로</button>
+</form>
+
+</body>
+</html>
