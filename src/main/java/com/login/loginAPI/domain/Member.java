@@ -1,13 +1,17 @@
 package com.login.loginAPI.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
 @Entity
 @Getter
+@Setter
 @Table(name = "member")
 public class Member {
     @Id
@@ -39,8 +43,6 @@ public class Member {
     @Lob
     private String description;
 
-    public Member() {
-    }
 
     public Member(String ID, String password, String name, Integer age, String email, RoleType roleType, String description) {
         this.id = ID;
@@ -52,35 +54,7 @@ public class Member {
         this.description = description;
     }
 
-    public void setMemberKey(Long memberKey) {
-        this.memberKey = memberKey;
-    }
+    public Member() {
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setId(String ID) {
-        this.id = ID;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

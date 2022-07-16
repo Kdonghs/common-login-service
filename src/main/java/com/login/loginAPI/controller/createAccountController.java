@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -23,6 +27,10 @@ public class createAccountController {
 
     @RequestMapping("/createAccountAction")
     public String createAccount(Member member){
+        Date day = new Date();
+        member.setCreatedDate(day);
+        member.setLastModifiedDate(day);
+
         if (memberService.createMember(member)){
             System.out.println("success");
         }else {
