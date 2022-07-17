@@ -2,17 +2,28 @@ package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/login")
+@RequiredArgsConstructor
 public class loginController {
 
     @Autowired
     private MemberService memberService;
+
+    @RequestMapping("/login")
+    public String login(Member member, Model model){
+        if (memberService.loginOk(member.getId(),member.getPassword())){
+            model.addAttribute("name","로그인됨");
+        }
+        return "home";
+    }
 
 }

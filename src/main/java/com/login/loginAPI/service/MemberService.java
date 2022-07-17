@@ -23,9 +23,20 @@ public class MemberService {
 
     }
 
+    public boolean loginOk(String id, String pw){
+
+        try {
+            System.out.println(memberRepository.searchId(id, pw));
+            return memberRepository.searchId(id,pw);
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public Optional<Member> getMember(Long id){
         return memberRepository.findById(id);
     }
+
 
     public Member updateMember(Long id, Member member){
         final Optional<Member> targetMember = memberRepository.findById(id);

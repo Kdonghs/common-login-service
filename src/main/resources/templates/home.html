@@ -6,6 +6,12 @@
 </head>
 <body>
 <h2>로그인 모듈</h2>
+<div>
+    <span th:if = "${name != null}">
+        <p align="right" th:text = "${name}"></p>
+    </span>
+</div>
+
 <table>
     <td><button onclick="location.href='/login/loginForm'">로그인</button></td>
     <td><button onclick="location.href='/createAccount/createAccount'">계정 생성</button></td>
