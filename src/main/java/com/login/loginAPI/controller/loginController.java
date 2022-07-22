@@ -20,8 +20,9 @@ public class loginController {
 
     @RequestMapping("/login")
     public String login(Member member, Model model){
-        if (memberService.loginOk(member.getId(),member.getPassword())){
-            model.addAttribute("name","로그인됨");
+        String flag = memberService.loginOk(member.getId(),member.getPassword());
+        if (flag!=""){
+            model.addAttribute("name",flag + " 로그인됨");
         }
         return "home";
     }
