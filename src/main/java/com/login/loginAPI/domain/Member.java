@@ -29,6 +29,7 @@ public class Member {
 
     private Integer age;
 
+    @Column(name = "Email")
     private String email;
 
     @Enumerated(EnumType.STRING)
