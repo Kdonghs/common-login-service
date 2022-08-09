@@ -1,19 +1,16 @@
 package com.login.loginAPI.domain;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
 @Entity
 @Getter
 @Setter
-@Table(name = "members")
+@Table(name = "member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

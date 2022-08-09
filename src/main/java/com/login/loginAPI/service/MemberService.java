@@ -6,6 +6,7 @@ import com.login.loginAPI.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,15 +36,25 @@ public class MemberService {
     }
 
     public Optional<Member> searchId(String name, String email){
-        return memberRepository.findByNameAndEmail(name,email);
+        return memberRepository.findMemberByNameAndEmail(name,email);
     }
 
     public Optional<Member> searchPw(String name, String email, String id){
-        return memberRepository.findByNameAndEmailAndId(name,email,id);
+        return memberRepository.findMemberByNameAndEmailAndId(name,email,id);
     }
 
     public List<Member> memberAll(){
         return memberRepository.findAll();
+    }
+
+    public List<Member> searchMemberAge(int search){
+        return memberRepository.findMemberByAgeLike(search);
+    }
+    public List<Member> searchMemberName(String search){
+        return memberRepository.findMemberByNameContaining(search);
+    }
+    public List<Member> searchMemberEmail(String search){
+        return memberRepository.findMemberByEmailContaining(search);
     }
 
 }
