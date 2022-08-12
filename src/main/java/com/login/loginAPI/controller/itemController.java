@@ -49,10 +49,11 @@ public class itemController {
     @PostMapping("/searchItem")
     public String searchItem(@RequestParam(value = "search", defaultValue = "") String search,
                              @RequestParam(value = "status", defaultValue = "") String status,Model model){
+        System.out.println("search = " + search);
         List<Item> items;
         if (status.equals("name")){
             items = itemService.searchItemName(search);
-        }else if (status.equals("age")){
+        }else if (status.equals("price")){
             items = itemService.searchItemPrice(Integer.parseInt(search));
         }else {
             items = new ArrayList<>();
