@@ -5,6 +5,7 @@ import com.login.loginAPI.domain.RoleType;
 import com.login.loginAPI.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,12 @@ public class MemberService {
     }
     public List<Member> searchMemberEmail(String search){
         return memberRepository.findMemberByEmailContaining(search);
+    }
+
+    @Transactional
+    public boolean existsByMemberId(String memberId){
+
+        return memberRepository.existsById(memberId);
     }
 
 }

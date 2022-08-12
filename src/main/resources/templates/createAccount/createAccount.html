@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>계정 생성</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script>
         function infoCheck(){
             var i = document.info
@@ -46,6 +47,30 @@
             i.submit()
         }
     </script>
+    <script>
+        $(document).ready(function (){
+            $("#idCheck").click(function (){
+            $.ajax({
+                url:'/createAccount/id/check.json',
+                type: "`GET",
+                contentType: "application/json",
+                data: {
+                    id: $("#id").val()
+                },
+                success: function (result) {
+                    // 성공 시 실패 메시지 hide, 성공 메시지 show
+                    $('#idNotAvailable').hide();
+                    $('#idAvailable').show().text(result).append($('<br />'));
+                }, error: function (error) {
+                    // 실패 시 실패 메시지 show, 성공 메시지 hide
+                    $('#idAvailable').hide();
+                    $('#idNotAvailable').show().text('이미 사용중인 아이디 입니다.').append($('<br />'));
+                }
+            });
+            });
+        });
+
+    </script>
 </head>
 <body>
 <h2>회원가입 폼</h2>
@@ -55,6 +80,9 @@
         <tr>
             <td>아이디:</td>
             <td><input type="text" name="id"></td>
+            <td><a id="idAvailable" class="valid-feedback" style="display: none;">1</a>
+                <a id="idNotAvailable" class="invalid-feedback" style="display: none;">2</a></td>
+            <td><button name="idCheck" type="button">중복확인</button></td>
         </tr>
         <tr>
             <td>비밀번호:</td>

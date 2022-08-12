@@ -5,19 +5,24 @@
     <title>홈 화면</title>
 </head>
 <body>
-<h2>로그인 모듈</h2>
-<div>
+<h2 style="display: inline">로그인 모듈</h2>
+<div style="float: right">
     <span th:if = "${name != null}">
-        <p align="right" th:text = "${name}"></p>
+        <a th:text = "${name}" ></a>
+        <button onclick="location.href='/'">로그아웃</button>
     </span>
 </div>
 
 <table>
-    <td><button onclick="location.href='/login/loginForm'">로그인</button></td>
-    <td><button onclick="location.href='/createAccount/createAccount'">계정 생성</button></td>
-    <td><button onclick="location.href='/memberList/memberList'">유저목록</button></td>
-    <td><button onclick="location.href='/searchAccount/searchID'">아이디 찾기</button><td>
+    <span th:if = "${name == null}">
+        <td><button onclick="location.href='/login/loginForm'">로그인</button></td>
+        <td><button onclick="location.href='/searchAccount/searchID'">아이디 찾기</button><td>
     <td><button onclick="location.href='/searchAccount/searchPW'">비밀번호 찾기</button></td>
+    </span>
+    <span th:if = "${name != null}">
+        <td><button onclick="location.href='/memberList/memberList'">유저목록</button></td>
+    </span>
+    <td><button onclick="location.href='/createAccount/createAccount'">계정 생성</button></td>
 </table>
 </body>
 </html>

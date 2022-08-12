@@ -18,4 +18,5 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
     List<Member> findMemberByAgeLike(int search);
     List<Member> findMemberByEmailContaining(String search);
 
+    boolean existsById(String memberId);
 }
