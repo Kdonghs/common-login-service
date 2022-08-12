@@ -27,4 +27,8 @@ public class homeController {
     public String searchPW(){
         return "searchAccount/searchPW";
     }
+    @GetMapping("/item/createItem")
+    public String createItem(){
+        return "item/createItem";
+    }
 }

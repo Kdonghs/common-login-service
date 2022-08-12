@@ -27,7 +27,7 @@ public class memberListController {
         return "memberList/memberList";
     }
     @PostMapping("/searchMember")
-    public String searchList(@RequestParam(value = "search", defaultValue = "") String search,
+    public String searchMember(@RequestParam(value = "search", defaultValue = "") String search,
                              @RequestParam(value = "status", defaultValue = "") String status,Model model){
 
         List<Member> members;

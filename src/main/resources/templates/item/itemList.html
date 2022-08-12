@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 목록</title>
+    <style>
+        th{
+            padding-right: 50px;
+        }
+    </style>
+</head>
+<body>
+<form name="searchs" method="post" action="/item/searchItem" th:align="left">
+    <select name="status">
+        <option value="name">이름</option>
+        <option value="price">가격</option>
+    </select>
+    <input type="text" name="search">
+    <button type="submit">검색</button>
+</form><hr>
+
+<table>
+    <tr><th>no</th>
+        <th>이름</th>
+        <th>가격</th>
+        <th>수량</th>
+    </tr>
+    <tr th:each="item,i : ${items}">
+        <td th:text ="${i.index+1}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.volume}"></td>
+    </tr>
+
+
+</table>
+</body>
+</html>
