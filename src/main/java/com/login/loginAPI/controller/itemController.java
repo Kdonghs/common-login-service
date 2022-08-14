@@ -1,8 +1,6 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Item;
-import com.login.loginAPI.domain.Member;
-import com.login.loginAPI.repository.ItemRepository;
 import com.login.loginAPI.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/item")
@@ -58,6 +57,35 @@ public class itemController {
         }else {
             items = new ArrayList<>();
         }
+        model.addAttribute("items",items);
+        return "item/itemList";
+    }
+
+    @PostMapping("/editItem")
+    public String editItem(Item item, Model model){
+        Optional<Item> flag = itemService.item(item.getItemID());
+
+        model.addAttribute("item",flag.get());
+        return "item/editItem";
+    }
+    @PostMapping("/editItem.do")
+    public String editItemDo(Item item, Model model){
+        Item flag = itemService.item(item.getItemID()).get();
+        flag.setName(item.getName());
+        flag.setPrice(item.getPrice());
+        flag.setVolume(item.getVolume());
+
+        itemService.itemSave(flag);
+        List<Item> items = itemService.itemAll();
+        model.addAttribute("items",items);
+        return "item/itemList";
+    }
+    @PostMapping("/deleteItem.do")
+    public String deleteItem(Item item, Model model){
+        System.out.println("item = " + item);
+        itemService.deleteItem(item);
+
+        List<Item> items = itemService.itemAll();
         model.addAttribute("items",items);
         return "item/itemList";
     }

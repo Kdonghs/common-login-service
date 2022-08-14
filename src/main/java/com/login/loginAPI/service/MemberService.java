@@ -27,7 +27,7 @@ public class MemberService {
     }
 
     public String loginOk(String id, String pw){
-        Optional<Member> flag = memberRepository.findByIdAndPasswordAndRoleType(id, pw, RoleType.USER);
+        Optional<Member> flag = memberRepository.findMemberByIdAndPasswordAndRoleType(id, pw, RoleType.USER);
         if (flag.isEmpty()){
             return "";
         }else {

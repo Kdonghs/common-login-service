@@ -28,19 +28,21 @@
     </script>
 </head>
 <body>
-<h2>상품 추가</h2>
+<h2 style="display: inline">상품추가</h2>
+<button onclick="location.href='/'" style="float:right">홈</button>
+<hr>
 <form name="createItem" method="post" onsubmit="return itemCheck()"  action="/item/create">
     <table>
         <tr>
-            <td>이름:</td>
+            <td>이름: </td>
             <td><input type="text" name="name" min="2"></td>
         </tr>
         <tr>
-            <td>가격:</td>
-            <td><input type="text" name="price"></td>
+            <td>가격: </td>
+            <td><input type="text" name="price"min="1"></td>
         </tr>
         <tr>
-            <td>수량:</td>
+            <td>수량: </td>
             <td><input type="text" name="volume" min="1"></td>
         </tr>
         <tr>
