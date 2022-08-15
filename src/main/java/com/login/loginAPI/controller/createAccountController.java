@@ -37,7 +37,6 @@ public class createAccountController {
     @RequestMapping( value = "/id/check.json", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "id") String Id) throws BadRequestException {
-        System.out.println(Id);
 
         if (memberService.existsByMemberId(Id) == true) {
             throw new BadRequestException("이미 사용중인 아이디 입니다.");

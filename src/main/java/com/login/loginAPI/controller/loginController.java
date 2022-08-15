@@ -18,6 +18,8 @@ public class loginController {
 
     @RequestMapping("/login")
     public String login(Member member, Model model){
+
+        System.out.println("member.get() = " + member.getSocial());
         String flag = memberService.loginOk(member.getId(),member.getPassword());
         if (flag!=""){
             model.addAttribute("name",flag + " 로그인됨");

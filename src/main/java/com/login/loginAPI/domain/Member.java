@@ -1,5 +1,6 @@
 package com.login.loginAPI.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +9,7 @@ import java.util.Date;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "member")
 public class Member {
     @Id
