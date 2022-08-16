@@ -38,7 +38,7 @@ public class loginController {
     }
 
     @RequestMapping("/logOut")
-    public String logoutV2(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         session.expires(request);
         return "login/loginForm";
     }
