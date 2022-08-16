@@ -26,13 +26,11 @@ public class MemberService {
 
     }
 
-    public String loginOk(String id, String pw){
-        Optional<Member> flag = memberRepository.findMemberByIdAndPasswordAndRoleType(id, pw, RoleType.USER);
-        if (flag.isEmpty()){
-            return "";
-        }else {
-            return flag.get().getName();
-        }
+    public Optional<Member> loginOk(String id, String pw,String role){
+        RoleType roleTypeByEnum = RoleType.valueOf(role);
+        Optional<Member> flag = memberRepository.findMemberByRoleTypeAndIdAndPassword(roleTypeByEnum,id,pw);
+
+        return flag;
 
     }
 

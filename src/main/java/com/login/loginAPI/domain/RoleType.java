@@ -1,5 +1,14 @@
 package com.login.loginAPI.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum RoleType {
-   USER,ADMIN;
+   USER("USER"),ADMIN("ADMIN");
+
+   private String value;
+
+   RoleType(String value){
+      this.value=value;
+   }
 }

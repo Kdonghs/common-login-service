@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/login")
@@ -24,14 +25,15 @@ public class loginController {
     sessionController session = new sessionController();
 
     @RequestMapping("/login")
-    public String login(Member member, BindingResult bindingResult, HttpServletResponse response){
+    public String login(Member member, BindingResult bindingResult, HttpServletResponse response, Model model){
+        Optional<Member> flag = memberService.loginOk(member.getId(),member.getPassword(),"USER");
 
-        System.out.println("member.get() = " + member.getSocial());
-        String flag = memberService.loginOk(member.getId(),member.getPassword());
         if(flag==null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "login/loginForm";
         } else {
+            System.out.println("flag = " + flag.get());
+            model.addAttribute("member",flag.get());
             session.createSession(member,response);
             return "home";
         }
