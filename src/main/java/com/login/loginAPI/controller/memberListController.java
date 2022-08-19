@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,12 @@ public class memberListController {
 
     @GetMapping("/memberList")
     public String memberList(Model model){
+
         List<Member> members = memberService.memberAll();
         model.addAttribute("members",members);
         return "memberList/memberList";
     }
+
     @PostMapping("/searchMember")
     public String searchMember(@RequestParam(value = "search", defaultValue = "") String search,
                              @RequestParam(value = "status", defaultValue = "") String status,Model model){

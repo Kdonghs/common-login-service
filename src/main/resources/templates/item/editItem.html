@@ -5,7 +5,8 @@
     <title>상품 수정</title>
 </head>
 <body>
-<h2>상품 수정</h2>
+<h2 style="display: inline">상품추가</h2>
+<button class="btn btn-primary" onclick="location.href='/'" style="float:right">홈</button>
 <hr>
 <form name="deleteItem" id="deleteItem" method="post" action="/item/deleteItem.do">
     <input name="itemID" th:value="${item.itemID}" type="hidden">

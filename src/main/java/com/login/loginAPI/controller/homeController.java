@@ -14,19 +14,12 @@ import java.util.Optional;
 @Controller
 public class homeController {
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model){
-
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "login/loginForm";
-        }
-
-        Object loginMember = session.getAttribute(sessionConst.LOGIN_MEMBER);
-        System.out.println("loginMember = " + loginMember);
+    public String home(@SessionAttribute(name = sessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model){
 
         if (loginMember == null){
             return "login/loginForm";
         }
+
         // 세션에 회원 데이터가 있으면 로그인한 유저를 위한 홈 화면으로 이동
         model.addAttribute("member", loginMember);
         return "home";
