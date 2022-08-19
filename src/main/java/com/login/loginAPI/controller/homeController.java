@@ -1,14 +1,35 @@
 package com.login.loginAPI.controller;
 
+import com.login.loginAPI.domain.Member;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class homeController {
     @GetMapping("/")
-    public String home(){
-        return "login/loginForm";
+    public String home(HttpServletRequest request, Model model){
+
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "login/loginForm";
+        }
+
+        Object loginMember = session.getAttribute(sessionConst.LOGIN_MEMBER);
+        System.out.println("loginMember = " + loginMember);
+
+        if (loginMember == null){
+            return "login/loginForm";
+        }
+        // 세션에 회원 데이터가 있으면 로그인한 유저를 위한 홈 화면으로 이동
+        model.addAttribute("member", loginMember);
+        return "home";
     }
 
     @GetMapping("login/loginForm")
