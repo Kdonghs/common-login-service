@@ -1,6 +1,7 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Item;
+import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,31 +12,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/item/")
 @RequiredArgsConstructor
 public class itemController {
 
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/create")
-    public String createItem(Item item){
+    @RequestMapping("create")
+    public String createItem(Item item, HttpServletRequest request){
         Date day = new Date();
         item.setCreatedDate(day);
         item.setLastModifiedDate(day);
+
+        Member member = (Member)request.getSession().getAttribute(sessionConst.LOGIN_MEMBER);
+        item.setRegister(member.getName());
 
         if (itemService.createItem(item)){
             System.out.println("success");
         }else {
             System.out.println("fail");
         }
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/itemList")
@@ -70,10 +75,15 @@ public class itemController {
     }
     @PostMapping("/editItem.do")
     public String editItemDo(Item item, Model model){
+        Date day = new Date();
+
+        System.out.println(item);
+
         Item flag = itemService.item(item.getItemID()).get();
         flag.setName(item.getName());
         flag.setPrice(item.getPrice());
         flag.setVolume(item.getVolume());
+        flag.setLastModifiedDate(day);
 
         itemService.itemSave(flag);
         List<Item> items = itemService.itemAll();

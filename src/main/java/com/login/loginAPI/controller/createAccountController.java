@@ -1,6 +1,8 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
+import com.login.loginAPI.domain.RoleType;
+import com.login.loginAPI.domain.Social;
 import com.login.loginAPI.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +24,26 @@ public class createAccountController {
 
     @RequestMapping("/createAccountAction")
     public String createAccount(Member member){
+        System.out.println(member);
         Date day = new Date();
         member.setCreatedDate(day);
         member.setLastModifiedDate(day);
+        member.setRoleType(RoleType.USER);
+        member.setSocial(Social.LOCAL);
 
         if (memberService.createMember(member)){
             System.out.println("success");
         }else {
             System.out.println("fail");
         }
-        return "home";
+        return "redirect:/";
     }
 
-    @RequestMapping( value = "/id/check.json", method = RequestMethod.GET)
+    @PostMapping(value = "/id/check")
     @ResponseBody
-    public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "id") String Id) throws BadRequestException {
+    public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "id") String id) throws BadRequestException {
 
-        if (memberService.existsByMemberId(Id) == true) {
+        if (memberService.existsByMemberId(id) == true) {
             throw new BadRequestException("이미 사용중인 아이디 입니다.");
         } else {
             return ResponseEntity.ok("사용 가능한 아이디 입니다.");

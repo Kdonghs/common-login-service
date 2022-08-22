@@ -19,7 +19,7 @@ public class Item {
 
     private Integer price;
 
-    private Integer register;
+    private String register;
 
     private Integer volume;
 
@@ -32,7 +32,7 @@ public class Item {
     @Lob
     private String description;
 
-    public Item(String name, Integer price, Integer register) {
+    public Item(String name, Integer price, String register) {
         this.name = name;
         this.price = price;
         this.register = register;

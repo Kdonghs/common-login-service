@@ -12,6 +12,7 @@
     <input name="itemID" th:value="${item.itemID}" type="hidden">
 </form>
 <form name="editItem" id="editItem" method="post" action="/item/editItem.do">
+    <input name="itemID" th:value="${item.itemID}" type="hidden">
     <table>
         <tr>
             <th>이름:</th>
