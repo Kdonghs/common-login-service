@@ -16,6 +16,7 @@ public class sessionCheckConfig implements WebMvcConfigurer {
         registry.addInterceptor(sessionCheckInterceptor())
                 .addPathPatterns("/item/**")
                 .addPathPatterns("/memberList/**")
+                .addPathPatterns("/profile/**")
                 .excludePathPatterns("/login/**")
                 .excludePathPatterns("/createAccount/**");
     }

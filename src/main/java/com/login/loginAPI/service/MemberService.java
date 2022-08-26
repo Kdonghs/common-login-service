@@ -1,5 +1,6 @@
 package com.login.loginAPI.service;
 
+import com.login.loginAPI.domain.Item;
 import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
 import com.login.loginAPI.repository.MemberRepository;
@@ -15,6 +16,14 @@ import java.util.Optional;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
+
+    public Optional<Member> member(Long memberKey) {
+        return memberRepository.findById(memberKey);
+    }
+
+    public void memberSave(Member member){
+        memberRepository.save(member);
+    }
 
     public boolean createMember(Member member){
         try {

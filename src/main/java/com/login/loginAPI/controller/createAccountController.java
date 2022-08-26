@@ -16,7 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/createAccount")
+@RequestMapping("/login")
 @RequiredArgsConstructor
 public class createAccountController {
     @Autowired

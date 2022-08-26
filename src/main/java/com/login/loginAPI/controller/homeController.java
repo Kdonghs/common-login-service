@@ -29,17 +29,17 @@ public class homeController {
     public String loginForm(){
         return "login/loginForm";
     }
-    @GetMapping("createAccount/createAccount")
+    @GetMapping("login/createAccount")
     public String createAccount(){
-        return "createAccount/createAccount";
+        return "login/createAccount";
     }
-    @GetMapping("searchAccount/searchID")
+    @GetMapping("login/searchID")
     public String searchID(){
-        return "searchAccount/searchID";
+        return "login/searchID";
     }
-    @GetMapping("searchAccount/searchPW")
+    @GetMapping("login/searchPW")
     public String searchPW(){
-        return "searchAccount/searchPW";
+        return "login/searchPW";
     }
     @GetMapping("/item/createItem")
     public String createItem(){
