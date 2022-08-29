@@ -12,13 +12,13 @@
     <title>계정 관리</title>
 
     <!-- Custom fonts for this template-->
-    <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link th:href="@{/static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
     <style>
         textarea {
             width: 100%;
@@ -27,6 +27,39 @@
             resize: none;
         }
     </style>
+    <script>
+        function infoCheck() {
+            var i = document.info
+
+            if (i.password.value == "") {
+                alert("현재비밀번호를 입력하세요")
+                i.password.focus()
+                return false
+            }
+            if (i.newPass.value == "") {
+                alert("새 비밀번호를 입력하세요")
+                i.newPass.focus()
+                return false
+            }
+            if (i.newPassRe.value == "") {
+                alert("새 비밀번호 확인을 입력하세요")
+                i.newPassRe.focus()
+                return false
+            }
+            if (i.email.value == "") {
+                alert("이메일을 입력하세요")
+                i.email.focus()
+                return false
+            }
+
+            if (i.newPass.value != i.newPassRe.value) {
+                alert("새 비밀번호가 일치하지 않습니다")
+                i.newPass.focus()
+                return false
+            }
+            i.submit()
+        }
+    </script>
 
 </head>
 
@@ -48,7 +81,7 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-4 text-gray-800" style="float:left">계정 관리</h1>
-                <form name="editProfile" method="post" action="/profile/editProfile.do">
+                <form name="editProfile" method="post" th:action="@{/profile/editProfile.do}">
                     <input type="hidden" name="memberKey" th:value="${member.memberKey}">
                     <div class="col-xl-12 col-md-6 mb-4" style="float: left">
 
@@ -59,8 +92,21 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <input th:value="${member.name}" name="name">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${member.name}">
+                                            <input type="hidden" th:value="${member.name}"  name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header">
+                                <div class=" font-weight-bold text-primary text-uppercase mb-1">아이디</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${member.id}">
+                                            <input type="hidden" th:value="${member.id}"  name="id">
                                         </div>
                                     </div>
                                 </div>
@@ -80,26 +126,39 @@
                             </div>
 
                             <div class="card-header">
-                                <div class=" font-weight-bold text-primary text-uppercase mb-1">아이디</div>
+                                <div class=" font-weight-bold text-primary text-uppercase mb-1">현재 비밀번호</div>
                             </div>
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <input <input th:value="${member.id}" name="id">
+                                            <input type="password" name="password">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="card-header">
-                                <div class=" font-weight-bold text-primary text-uppercase mb-1">비밀번호</div>
+                                <div class=" font-weight-bold text-primary text-uppercase mb-1">새 비밀번호</div>
                             </div>
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <input th:value="${member.password}" name="password">
+                                            <input type="password" name="newPass">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header">
+                                <div class=" font-weight-bold text-primary text-uppercase mb-1">새 비밀번호 확인</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <input type="password" name="newPassRe">
                                         </div>
                                     </div>
                                 </div>
@@ -123,12 +182,12 @@
                         </div>
 
                     </div>
-                    <button type="submit" class="btn btn-primary btn-user btn-block" style="float: left">
+                    <button type="submit" onsubmit="return infoCheck()" class="btn btn-primary btn-user btn-block" style="float: left">
                         수정
                     </button>
-                    <!--<button class="btn btn-primary btn-user btn-block" style="float: left">
+                    <button type="button" class="btn btn-primary btn-user btn-block" style="float: left"  th:href="@{/profile/profile}">
                         취소
-                    </button>-->
+                    </button>
                 </form>
             </div>
             <!-- /.container-fluid -->
@@ -145,14 +204,14 @@
 <!-- End of Page Wrapper -->
 
 <!-- Bootstrap core JavaScript-->
-<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 <!-- Core plugin JavaScript-->
-<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
 <!-- Custom scripts for all pages-->
-<script th:src="@{/static/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 </body>
 

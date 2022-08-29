@@ -1,9 +1,11 @@
+/*
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
 import com.login.loginAPI.domain.Social;
 import com.login.loginAPI.service.MemberService;
+import com.login.loginAPI.service.loginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +23,11 @@ import java.util.Date;
 public class createAccountController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private loginService loginService;
 
-    @RequestMapping("/createAccountAction")
+
+    @PostMapping("/createAccount.do")
     public String createAccount(Member member){
         System.out.println(member);
         Date day = new Date();
@@ -30,6 +35,8 @@ public class createAccountController {
         member.setLastModifiedDate(day);
         member.setRoleType(RoleType.USER);
         member.setSocial(Social.LOCAL);
+
+        loginService.EncodingPassword(member);
 
         if (memberService.createMember(member)){
             System.out.println("success");
@@ -42,7 +49,7 @@ public class createAccountController {
     @PostMapping(value = "/id/check")
     @ResponseBody
     public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "id") String id) throws BadRequestException {
-
+        System.out.println("id = " + id);
         if (memberService.existsByMemberId(id) == true) {
             throw new BadRequestException("이미 사용중인 아이디 입니다.");
         } else {
@@ -58,3 +65,4 @@ public class createAccountController {
         }
     }
 }
+*/

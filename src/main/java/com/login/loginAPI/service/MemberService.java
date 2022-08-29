@@ -5,6 +5,11 @@ import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
 import com.login.loginAPI.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +24,9 @@ public class MemberService {
 
     public Optional<Member> member(Long memberKey) {
         return memberRepository.findById(memberKey);
+    }
+    public Optional<Member> member(String id) {
+        return memberRepository.findMemberById(id);
     }
 
     public void memberSave(Member member){

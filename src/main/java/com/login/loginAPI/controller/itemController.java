@@ -5,6 +5,7 @@ import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +28,12 @@ public class itemController {
     private ItemService itemService;
 
     @RequestMapping("create")
-    public String createItem(Item item, HttpServletRequest request){
+    public String createItem(Item item, Authentication authentication){
         Date day = new Date();
         item.setCreatedDate(day);
         item.setLastModifiedDate(day);
 
-        Member member = (Member)request.getSession().getAttribute(sessionConst.LOGIN_MEMBER);
-        item.setRegister(member.getName());
+        item.setRegister(authentication.getName());
 
         if (itemService.createItem(item)){
             System.out.println("success");

@@ -1,3 +1,4 @@
+/*
 package com.login.loginAPI.config;
 
 import com.login.loginAPI.interceptor.sessionCheckInterceptor;
@@ -29,3 +30,4 @@ public class sessionCheckConfig implements WebMvcConfigurer {
         return new sessionCheckInterceptor();
     }
 }
+*/

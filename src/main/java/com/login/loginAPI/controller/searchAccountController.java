@@ -1,3 +1,4 @@
+/*
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
@@ -42,3 +43,4 @@ public class searchAccountController {
         return "searchAccount/searchResult";
     }
 }
+*/

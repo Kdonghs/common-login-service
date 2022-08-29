@@ -1,3 +1,4 @@
+/*
 package com.login.loginAPI.interceptor;
 
 import com.login.loginAPI.controller.sessionConst;
@@ -25,3 +26,4 @@ public class sessionCheckInterceptor implements HandlerInterceptor {
         return false;
     }
 }
+*/
