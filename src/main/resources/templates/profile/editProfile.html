@@ -29,7 +29,7 @@
     </style>
     <script>
         function infoCheck() {
-            var i = document.info
+            var i = document.editProfile
 
             if (i.password.value == "") {
                 alert("현재비밀번호를 입력하세요")
@@ -182,12 +182,13 @@
                         </div>
 
                     </div>
-                    <button type="submit" onsubmit="return infoCheck()" class="btn btn-primary btn-user btn-block" style="float: left">
+                    <button type="submit" onclick="return infoCheck()" class="btn btn-primary btn-user btn-block" style="float: left">
                         수정
                     </button>
-                    <button type="button" class="btn btn-primary btn-user btn-block" style="float: left"  th:href="@{/profile/profile}">
-                        취소
-                    </button>
+                    <a href="/profile/profile" class="btn btn-primary btn-user btn-block" style="float:left">
+                        <span class="text">취소</span>
+                    </a>
+
                 </form>
             </div>
             <!-- /.container-fluid -->
