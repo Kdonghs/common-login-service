@@ -56,9 +56,6 @@ public class loginController {
 
     @PostMapping("/createAccount.do")
     public String createAccount(Member member){
-        Date day = new Date();
-        member.setCreatedDate(day);
-        member.setLastModifiedDate(day);
         member.setRoleType(RoleType.USER);
         member.setSocial(Social.LOCAL);
 

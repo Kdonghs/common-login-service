@@ -1,5 +1,6 @@
 package com.login.loginAPI.domain;
 
+import com.login.loginAPI.entity.BaseTimeEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "member")
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberKey;
@@ -35,12 +36,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Social social;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
 
     @Lob
     private String description;

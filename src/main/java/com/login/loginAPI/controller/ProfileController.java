@@ -48,12 +48,10 @@ public class ProfileController {
             model.addAttribute("member", flag);
             return  "profile/profile";
         }
-        Date day = new Date();
 
         flag.setId(member.getId());
         flag.setPassword(encoder.encode(newPass));
         flag.setDescription(member.getDescription());
-        flag.setLastModifiedDate(day);
 
         memberService.memberSave(flag);
         StringBuilder sb = new StringBuilder();

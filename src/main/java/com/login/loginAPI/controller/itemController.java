@@ -1,7 +1,6 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Item;
-import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +26,6 @@ public class itemController {
 
     @RequestMapping("create")
     public String createItem(Item item, Authentication authentication){
-        Date day = new Date();
-        item.setCreatedDate(day);
-        item.setLastModifiedDate(day);
-
         item.setRegister(authentication.getName());
 
         if (itemService.createItem(item)){
@@ -75,7 +68,6 @@ public class itemController {
     }
     @PostMapping("/editItem.do")
     public String editItemDo(Item item, Model model){
-        Date day = new Date();
 
         System.out.println(item);
 
@@ -83,7 +75,6 @@ public class itemController {
         flag.setName(item.getName());
         flag.setPrice(item.getPrice());
         flag.setVolume(item.getVolume());
-        flag.setLastModifiedDate(day);
 
         itemService.itemSave(flag);
         List<Item> items = itemService.itemAll();

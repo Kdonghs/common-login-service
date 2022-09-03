@@ -39,6 +39,7 @@ public class homeController {
         if (authentication==null){
             return "login/loginForm";
         }
+
         Member member = memberService.member(authentication.getName()).get();
         model.addAttribute(member);
         System.out.println(authentication);
