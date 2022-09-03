@@ -30,6 +30,7 @@ public class ProfileController {
     }
     @GetMapping("/editProfile")
     public String editProfile(Authentication authentication, Model model){
+        System.out.println(authentication);
         Member member = memberService.member(authentication.getName()).get();
         model.addAttribute("member",member);
         return  "profile/editProfile";
@@ -41,25 +42,19 @@ public class ProfileController {
 
         Member flag = memberService.member(authentication.getName()).get();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(member.getPassword());
-        System.out.println(encoder.matches(member.getPassword(), flag.getPassword()));
+
         if (!encoder.matches(member.getPassword(), flag.getPassword())){
             flag.setPassword(REPLACE);
             model.addAttribute("member", flag);
             return  "profile/profile";
         }
 
-        flag.setId(member.getId());
+        flag.setEmail(member.getEmail());
         flag.setPassword(encoder.encode(newPass));
         flag.setDescription(member.getDescription());
 
         memberService.memberSave(flag);
-        StringBuilder sb = new StringBuilder();
-        for (int i=0;i<10;i++){
-            sb.append('*');
-        }
-        System.out.println(sb);
-        flag.setPassword(sb.toString());
+        flag.setPassword(REPLACE);
 
         model.addAttribute("member", flag);
         return  "profile/profile";
