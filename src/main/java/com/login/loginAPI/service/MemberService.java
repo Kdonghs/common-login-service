@@ -25,8 +25,8 @@ public class MemberService {
     public Optional<Member> member(Long memberKey) {
         return memberRepository.findById(memberKey);
     }
-    public Optional<Member> member(String id) {
-        return memberRepository.findMemberById(id);
+    public Optional<Member> member(String username) {
+        return memberRepository.findMemberByUsername(username);
     }
 
     public void memberSave(Member member){
@@ -43,9 +43,9 @@ public class MemberService {
 
     }
 
-    public Optional<Member> loginOk(String id, String pw,String role){
+    public Optional<Member> loginOk(String username, String pw,String role){
         RoleType roleTypeByEnum = RoleType.valueOf(role);
-        Optional<Member> flag = memberRepository.findMemberByRoleTypeAndIdAndPassword(roleTypeByEnum,id,pw);
+        Optional<Member> flag = memberRepository.findMemberByRoleTypeAndUsernameAndPassword(roleTypeByEnum,username,pw);
 
         return flag;
 
@@ -74,9 +74,9 @@ public class MemberService {
     }
 
     @Transactional
-    public boolean existsByMemberId(String memberId){
+    public boolean existsByMemberId(String username){
 
-        return memberRepository.existsById(memberId);
+        return memberRepository.existsByUsername(username);
     }
 
 }

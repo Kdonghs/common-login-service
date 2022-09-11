@@ -29,16 +29,16 @@ public class loginService implements UserDetailsService {
         // 비밀번호 암호화
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         member.setPassword(passwordEncoder.encode(member.getPassword()));
-        return memberRepository.save(member).getMemberKey();
+        return memberRepository.save(member).getId();
     }
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Optional<Member> flag = memberRepository.findMemberById(id);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> flag = memberRepository.findMemberByUsername(username);
         Member member = flag.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(member.getRoleType().toString()));
 
-        return new User(member.getId(), member.getPassword(), authorities);
+        return new User(member.getUsername(), member.getPassword(), authorities);
     }
 }

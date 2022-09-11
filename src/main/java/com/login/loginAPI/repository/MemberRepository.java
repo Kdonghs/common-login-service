@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member,Long>{
-    Optional<Member> findMemberByRoleTypeAndIdAndPassword(@Param(value = "roleType") RoleType roleType,String id,String password);
+    Optional<Member> findMemberByRoleTypeAndUsernameAndPassword(@Param(value = "roleType") RoleType roleType,String username,String password);
     Optional<Member> findMemberByNameAndEmail(String name,String email);
     Optional<Member> findMemberByNameAndEmailAndId(String name,String email,String id);
-    Optional<Member> findMemberById(String id);
+    Optional<Member> findMemberByUsername(String username);
 
     @Override
     Optional<Member> findById(Long aLong);
@@ -23,5 +23,5 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
     List<Member> findMemberByAgeLike(int search);
     List<Member> findMemberByEmailContaining(String search);
 
-    boolean existsById(String id);
+    boolean existsByUsername(String username);
 }

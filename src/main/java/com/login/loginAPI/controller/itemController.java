@@ -26,7 +26,6 @@ public class itemController {
 
     @RequestMapping("create")
     public String createItem(Item item, Authentication authentication){
-        item.setRegister(authentication.getName());
 
         if (itemService.createItem(item)){
             System.out.println("success");
@@ -61,7 +60,7 @@ public class itemController {
 
     @PostMapping("/editItem")
     public String editItem(Item item, Model model){
-        Optional<Item> flag = itemService.item(item.getItemID());
+        Optional<Item> flag = itemService.item(item.getId());
 
         model.addAttribute("item",flag.get());
         return "item/editItem";
@@ -71,7 +70,7 @@ public class itemController {
 
         System.out.println(item);
 
-        Item flag = itemService.item(item.getItemID()).get();
+        Item flag = itemService.item(item.getId()).get();
         flag.setName(item.getName());
         flag.setPrice(item.getPrice());
         flag.setVolume(item.getVolume());

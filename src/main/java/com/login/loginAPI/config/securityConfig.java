@@ -20,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @AllArgsConstructor
 public class securityConfig extends WebSecurityConfigurerAdapter {
     private loginService loginService;
+    /*private final CustomOAuth2Service customOAuth2Service;*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,7 +29,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/static/**").antMatchers("/h2-console/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,7 +41,11 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                     /*.antMatchers("/").hasRole("ADMIN")
                     .antMatchers("/").hasRole("MEMBER")*/
                     .antMatchers("/**").permitAll()
+                    .antMatchers("/h2-console/**").permitAll()
                     .anyRequest().authenticated()
+                .and()
+                    .csrf()
+                    .ignoringAntMatchers("/h2-console/**")    // 여기!
                 .and() // 로그인 설정
                     .formLogin()
                     .loginPage("/login/loginForm")
@@ -54,6 +59,10 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                      // 403 예외처리 핸들링
                     .exceptionHandling().accessDeniedPage("/sidebar/404");
+                /*.and()
+                    .oauth2Login()
+                        .userInfoEndpoint()
+                            .userService(customOAuth2Service);*/
 
     }
 

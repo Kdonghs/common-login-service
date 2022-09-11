@@ -57,7 +57,7 @@ public class loginController {
     @PostMapping("/createAccount.do")
     public String createAccount(Member member){
         member.setRoleType(RoleType.USER);
-        member.setSocial(Social.LOCAL);
+        System.out.println(member);
 
         loginService.EncodingPassword(member);
 
@@ -106,7 +106,7 @@ public class loginController {
     @RequestMapping("/searchPwAction")
     public String searchPw(Member member, Model model){
         System.out.println("member.getId() = " + member.getId());
-        Optional<Member> flag = memberService.searchPw(member.getName(), member.getEmail(),member.getId());
+        Optional<Member> flag = memberService.searchPw(member.getName(), member.getEmail(),member.getUsername());
         if (flag.isEmpty()){
             model.addAttribute("search","비밀번호 검색 결과");
             model.addAttribute("result","검색결과 없음");

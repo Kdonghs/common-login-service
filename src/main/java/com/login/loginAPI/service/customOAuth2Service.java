@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @Service
 @RequiredArgsConstructor
-public class CustomOAuth2Service {
+public class CustomOAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
 
@@ -31,15 +31,21 @@ public class CustomOAuth2Service {
         OAuthAttributes attributes = OAuthAttributes.
                 of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        Member member = saveOrUpdate(attributes);
+        */
+/*Member member = saveOrUpdate(attributes);*//*
 
+
+        return oAuth2User;
     }
 
-    private Member saveOrUpdate(OAuthAttributes attributes) {
-        Member member = memberRepository.findMemberbyEmail
-                .map(entity -> entity.update(attributes.getName(),attributes.getPicture()))
+    */
+/*private Member saveOrUpdate(OAuthAttributes attributes) {
+        Member member = memberRepository.findMemberByEmailContaining(attributes.getEmail()).stream()
+                .map(entity -> entity)
                 .orElse(attributes.toEntity());
 
         return memberRepository.save(member);
+    }*//*
+
 }
 */

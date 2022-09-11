@@ -1,58 +1,62 @@
 package com.login.loginAPI.domain;
 
 import com.login.loginAPI.entity.BaseTimeEntity;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Data
-@Table(name = "member")
+@Table(name = "`member`")
+@NoArgsConstructor
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberKey;
+    @Column(name = "memberID")
+    private Long id;
 
-    @Column(name = "ID")
-    private String id;
+    @Column(nullable = false)
+    private String username;
 
-    @Column(name = "password")
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "name")
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Integer age;
 
-    @Column(name = "Email")
+    @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RoleType roleType;
-
-    @Enumerated(EnumType.STRING)
-    private Social social;
 
     @Lob
     private String description;
 
+    @OneToMany
+    private List<SNSInfo> snsInfo = new ArrayList<SNSInfo>();
 
-    public Member(String ID, String password, String name, Integer age, String email, RoleType roleType,Social social, String description) {
-        this.id = ID;
+    @OneToMany
+    private List<Item> Item = new ArrayList<Item>();
+
+
+    @Builder
+    public Member(String username, String password, String name, Integer age, String email, RoleType roleType,Social social, String description) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.age = age;
         this.email = email;
         this.roleType = roleType;
-        this.social = social;
         this.description = description;
     }
 
-    public Member() {
-
-    }
 }

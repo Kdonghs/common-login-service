@@ -10,27 +10,29 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "item")
+@Table(name = "`item`")
 public class Item extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemID;
+    private Long id;
 
     private String name;
 
     private Integer price;
-
-    private String register;
 
     private Integer volume;
 
     @Lob
     private String description;
 
-    public Item(String name, Integer price, String register) {
+    @ManyToOne(optional = false)
+    @JoinTable(name = "member_item", joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "memberID"))
+    private Member memberId;
+
+    public Item(String name, Integer price) {
         this.name = name;
         this.price = price;
-        this.register = register;
     }
 
     public Item(){}

@@ -1,4 +1,3 @@
-/*
 package com.login.loginAPI.dto;
 
 import com.login.loginAPI.domain.Member;
@@ -43,8 +42,7 @@ public class OAuthAttributes {
         return Member.builder()
                 .name(name)
                 .email(email)
-                .role(RoleType.USER)
+                .roleType(RoleType.USER)
                 .build();
     }
 }
-*/
