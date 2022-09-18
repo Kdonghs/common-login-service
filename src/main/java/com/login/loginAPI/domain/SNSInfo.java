@@ -1,5 +1,6 @@
 package com.login.loginAPI.domain;
 
+import com.login.loginAPI.entity.BaseTimeEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "`snsinfo`")
 @NoArgsConstructor
-public class SNSInfo {
+public class SNSInfo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,12 +28,21 @@ public class SNSInfo {
 
     private String snsProfile;
 
-    @CreatedDate
-    private LocalDateTime snsConnectDate;
-
-    @ManyToOne(optional = false)
-    @JoinTable(name = "member_snsInfo", joinColumns = @JoinColumn(name = "id"),
-    inverseJoinColumns = @JoinColumn(name = "memberID"))
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "member_id")
     private Member memberId;
 
+    public SNSInfo update(String name, Social snsType, String snsProfile) {
+        this.snsName = name;
+        this.snsType = snsType;
+        this.snsProfile = snsProfile;
+
+        return this;
+    }
+
+    public SNSInfo(String snsID, String snsName, String snsProfile) {
+        this.snsID = snsID;
+        this.snsName = snsName;
+        this.snsProfile = snsProfile;
+    }
 }

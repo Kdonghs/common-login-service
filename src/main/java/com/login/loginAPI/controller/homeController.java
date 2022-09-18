@@ -1,26 +1,26 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
+import com.login.loginAPI.domain.SNSInfo;
+import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
 public class homeController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private CustomOAuth2Service customOAuth2Service;
 
     /*@GetMapping("/") //spring security x
     public String home(@SessionAttribute(name = sessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model){
@@ -40,11 +40,22 @@ public class homeController {
             return "login/loginForm";
         }
 
-        Member member = memberService.member(authentication.getName()).get();
+        /*Map<String, Object> attributes = token.getPrincipal().getAttributes();*/
+        Member member = customOAuth2Service.authenticationMember(authentication);
+        /*
+        if (memberService.member(authentication.getName()).isEmpty()){
+            Optional<SNSInfo> flag = customOAuth2Service.snsInfo((String) attributes.get("sub"));
+            member=memberService.member(flag.get().getMemberId().getId()).get();
+        }else {
+            member = memberService.member(authentication.getName()).get();
+        }*/
+
         model.addAttribute(member);
         System.out.println(authentication);
         return "home";
     }
+
+
     @GetMapping("login/loginForm")
     public String loginForm(){
         return "login/loginForm";
@@ -65,4 +76,5 @@ public class homeController {
     public String createItem(){
         return "item/createItem";
     }
+
 }

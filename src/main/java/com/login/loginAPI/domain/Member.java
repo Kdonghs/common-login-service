@@ -19,44 +19,37 @@ public class Member extends BaseTimeEntity {
     @Column(name = "memberID")
     private Long id;
 
-    @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private Integer age;
 
-    @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private RoleType roleType;
 
     @Lob
     private String description;
 
-    @OneToMany
-    private List<SNSInfo> snsInfo = new ArrayList<SNSInfo>();
-
-    @OneToMany
-    private List<Item> Item = new ArrayList<Item>();
-
 
     @Builder
-    public Member(String username, String password, String name, Integer age, String email, RoleType roleType,Social social, String description) {
+    public Member(String username, String password, String name, Integer age, String email, RoleType roleType) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.age = age;
         this.email = email;
         this.roleType = roleType;
-        this.description = description;
+    }
+
+    public Member update(String name) {
+        this.name = name;
+
+        return this;
     }
 
 }

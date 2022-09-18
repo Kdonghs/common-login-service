@@ -1,5 +1,6 @@
 package com.login.loginAPI.config;
 
+import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import com.login.loginAPI.service.loginService;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @AllArgsConstructor
 public class securityConfig extends WebSecurityConfigurerAdapter {
     private loginService loginService;
-    /*private final CustomOAuth2Service customOAuth2Service;*/
+    private final CustomOAuth2Service customOAuth2Service;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -57,12 +58,12 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true)
                 .and()
-                     // 403 예외처리 핸들링
-                    .exceptionHandling().accessDeniedPage("/sidebar/404");
-                /*.and()
+                     // 403 예외처리 핸들링(403: 사이트 관리자가 의도적으로 액세스를 차단)
+                    .exceptionHandling().accessDeniedPage("/sidebar/404")
+                .and()
                     .oauth2Login()
                         .userInfoEndpoint()
-                            .userService(customOAuth2Service);*/
+                            .userService(customOAuth2Service);
 
     }
 

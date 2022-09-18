@@ -11,18 +11,22 @@ import java.util.Map;
 @Getter
 public class OAuthAttributes {
     private Map<String,Object> attributes;
+    private String sub;
     private String nameAttributeKey;
+    private String picture;
     private String name;
     private String email;
 
     @Builder
     public OAuthAttributes(Map<String, Object> attributes,
                            String nameAttributeKey, String name,
-                           String email){
+                           String email, String picture,String sub){
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
+        this.picture = picture;
+        this.sub = sub;
     }
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
@@ -31,9 +35,12 @@ public class OAuthAttributes {
     }
     private static OAuthAttributes ofGoogle(String userNameAttributeName,
                                             Map<String, Object> attributes) {
+        System.out.println(attributes);
         return OAuthAttributes.builder()
+                .sub((String) attributes.get("sub"))
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
+                .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();

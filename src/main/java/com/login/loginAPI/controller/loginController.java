@@ -2,7 +2,9 @@ package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
+import com.login.loginAPI.domain.SNSInfo;
 import com.login.loginAPI.domain.Social;
+import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import com.login.loginAPI.service.loginService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +28,8 @@ public class loginController {
     private MemberService memberService;
     @Autowired
     private loginService loginService;
+    @Autowired
+    private CustomOAuth2Service customOAuth2Service;
 
     /*@RequestMapping("/login") @SessionAttribute 으로 처리
     public String login(Member member, BindingResult bindingResult, HttpServletRequest request){
@@ -57,15 +62,20 @@ public class loginController {
     @PostMapping("/createAccount.do")
     public String createAccount(Member member){
         member.setRoleType(RoleType.USER);
-        System.out.println(member);
 
-        loginService.EncodingPassword(member);
+        if (!memberService.emailMember(member.getEmail()).isEmpty()){
+            Member flag = memberService.emailMember(member.getEmail()).get();
 
-        if (memberService.createMember(member)){
-            System.out.println("success");
+            flag.setPassword(member.getPassword());
+            flag.setAge(member.getAge());
+            flag.setId(member.getId());
+
+            loginService.EncodingPassword(flag);
         }else {
-            System.out.println("fail");
+            loginService.EncodingPassword(member);
         }
+
+
         return "redirect:/";
     }
 

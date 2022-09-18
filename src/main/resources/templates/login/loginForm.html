@@ -77,14 +77,20 @@
                                         로그인
                                     </button>
                                     <hr>
-                                    <button type="button" class="btn btn-google btn-user btn-block">
-                                        <input type="hidden" value="LOCAL" name="GOOGLE">
-                                        <i class="fab fa-google fa-fw"></i> 구글로 로그인
-                                    </button>
-                                    <button type="button" class="btn btn-facebook btn-user btn-block">
-                                        <input type="hidden" value="LOCAL" name="FACEBOOK">
-                                        <i class="fab fa-facebook-f fa-fw"></i> 페이스북으로 로그인
-                                    </button>
+                                    <div class="row d-flex justify-content-center">
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button type="button" class="btn btn-google btn-user btn-block" onclick="location.href='/oauth2/authorization/google'">
+                                            <input type="hidden" value="LOCAL" name="GOOGLE">
+                                            <i class="fab fa-google fa-fw"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-2 td-flex justify-content-center">
+                                        <button type="buttone" class="btn btn-facebook btn-user btn-block">
+                                            <input type="hidden" value="LOCAL" name="KAKAO">
+                                            <i class="fab fa-facebook-f fa-fw"></i>
+                                        </button>
+                                    </div>
+                                    </div>
                                 </form>
                                 <hr>
                                 <div class="text-center">

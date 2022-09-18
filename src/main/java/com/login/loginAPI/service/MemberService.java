@@ -1,19 +1,11 @@
 package com.login.loginAPI.service;
 
-import com.login.loginAPI.domain.Item;
 import com.login.loginAPI.domain.Member;
-import com.login.loginAPI.domain.RoleType;
 import com.login.loginAPI.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +19,9 @@ public class MemberService {
     }
     public Optional<Member> member(String username) {
         return memberRepository.findMemberByUsername(username);
+    }
+    public Optional<Member> emailMember(String email) {
+        return memberRepository.findMemberByEmail(email);
     }
 
     public void memberSave(Member member){
@@ -43,13 +38,13 @@ public class MemberService {
 
     }
 
-    public Optional<Member> loginOk(String username, String pw,String role){
+    /*public Optional<Member> loginOk(String username, String pw,String role){
         RoleType roleTypeByEnum = RoleType.valueOf(role);
         Optional<Member> flag = memberRepository.findMemberByRoleTypeAndUsernameAndPassword(roleTypeByEnum,username,pw);
 
         return flag;
 
-    }
+    }*/
 
     public Optional<Member> searchId(String name, String email){
         return memberRepository.findMemberByNameAndEmail(name,email);

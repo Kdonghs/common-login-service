@@ -1,10 +1,13 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
+import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +22,12 @@ public class ProfileController {
 
     @Autowired
     MemberService memberService;
+    @Autowired
+    private CustomOAuth2Service customOAuth2Service;
 
     @GetMapping("/profile")
     public String profile(Authentication authentication, Model model){
-        Member member = memberService.member(authentication.getName()).get();
+        Member member = customOAuth2Service.authenticationMember(authentication);
         member.setPassword(REPLACE);
         model.addAttribute("member",member);
 
@@ -30,8 +35,7 @@ public class ProfileController {
     }
     @GetMapping("/editProfile")
     public String editProfile(Authentication authentication, Model model){
-        System.out.println(authentication);
-        Member member = memberService.member(authentication.getName()).get();
+        Member member = customOAuth2Service.authenticationMember(authentication);
         model.addAttribute("member",member);
         return  "profile/editProfile";
     }
@@ -40,7 +44,7 @@ public class ProfileController {
     public String editProfileDo(@RequestParam(value = "newPass",defaultValue = "") String newPass,
                                 Authentication authentication,Member member, Model model){
 
-        Member flag = memberService.member(authentication.getName()).get();
+        Member flag = customOAuth2Service.authenticationMember(authentication);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if (!encoder.matches(member.getPassword(), flag.getPassword())){
