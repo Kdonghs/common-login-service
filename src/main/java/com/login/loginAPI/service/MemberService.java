@@ -69,7 +69,7 @@ public class MemberService {
     }
 
     @Transactional
-    public boolean existsByMemberId(String username){
+    public boolean existsByMemberUsername(String username){
 
         return memberRepository.existsByUsername(username);
     }

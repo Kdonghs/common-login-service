@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Social {
-    LOCAL("LOCAL"), KAKAO("KAKAO"), GOOGLE("GOOGLE");
+    LOCAL("LOCAL"), KAKAO("KAKAO"), GOOGLE("GOOGLE"), NAVER("NAVER");
 
     private String value;
 

@@ -80,20 +80,20 @@
         function  checkID(){
             var i = document.info
 
-            if (i.id.value == "") {
+            if (i.username.value == "") {
                 alert("아이디를 입력하세요")
-                i.id.focus()
+                i.username.focus()
                 return false
             }
 
-            var id = $('#id').val();
+            var id = $('#username').val();
             var header = $("meta[name='_csrf_header']").attr('content');
             var token = $("meta[name='_csrf']").attr('content');
 
             $.ajax({
                 url:'/login/id/check',
                 type:'post',
-                data:{id:id},
+                data:{username:id},
                 beforeSend: function (jqXHR, settings) {
                     var header = $("meta[name='_csrf_header']").attr("content");
                     var token = $("meta[name='_csrf']").attr("content");
@@ -131,7 +131,7 @@
                                     <input type="hidden" name="valiCheck" value="false">
                                     <div class="form-group row">
                                         <div class="col-sm-9 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control form-control-user" id="id" name="username"
+                                            <input type="text" class="form-control form-control-user" id="username" name="username"
                                                    placeholder="id">
                                         </div>
                                         <div class="col-sm-3">

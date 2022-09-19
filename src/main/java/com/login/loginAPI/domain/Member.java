@@ -2,6 +2,7 @@ package com.login.loginAPI.domain;
 
 import com.login.loginAPI.entity.BaseTimeEntity;
 import lombok.*;
+import org.hibernate.engine.jdbc.Size;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 20)
     private String username;
 
     private String password;
 
     private String name;
 
+    @Column(length = 200)
     private Integer age;
 
     private String email;
@@ -52,6 +55,6 @@ public class Member extends BaseTimeEntity {
         this.age = age;
 
         return this;
-    }
+}
 
 }

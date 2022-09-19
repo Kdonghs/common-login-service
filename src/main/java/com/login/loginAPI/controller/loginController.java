@@ -79,11 +79,9 @@ public class loginController {
 
     @PostMapping(value = "/id/check")
     @ResponseBody
-    public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "id") String id) throws loginController.BadRequestException {
-        System.out.println("id = " + id);
-        System.out.println(memberService.existsByMemberId(id));
+    public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "username") String username) throws loginController.BadRequestException {
 
-        if (memberService.existsByMemberId(id) == true) {
+        if (memberService.existsByMemberUsername(username) == true) {
             throw new loginController.BadRequestException("이미 사용중인 아이디 입니다.");
         } else {
             return ResponseEntity.ok("사용 가능한 아이디 입니다.");

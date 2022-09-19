@@ -36,19 +36,25 @@ public class CustomOAuth2Service implements OAuth2UserService<OAuth2UserRequest,
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(request);
-        System.out.println(oAuth2User);
 
         String registrationId = request.getClientRegistration().getRegistrationId();
         String userNameAttributeName = request.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
-        System.out.println(registrationId);
-        System.out.println(userNameAttributeName);
 
         OAuthAttributes attributes = OAuthAttributes.
                 of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         Member member = saveOrUpdate(attributes, registrationId);
         httpSession.setAttribute("snsInfo", new SessionMember(member));
+
+        System.out.println(oAuth2User.getAttributes());
+        System.out.println(1);
+        System.out.println(attributes.getAttributes());
+
+        if (registrationId.equals("kakao")){
+            return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleType().getValue())),
+                    oAuth2User.getAttributes(), attributes.getNameAttributeKey());
+        }
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleType().getValue())),
                 attributes.getAttributes(), attributes.getNameAttributeKey());
@@ -64,8 +70,15 @@ public class CustomOAuth2Service implements OAuth2UserService<OAuth2UserRequest,
         flag = memberRepository.findMemberByEmail(attributes.getEmail());
         SNSInfo snsInfo = new SNSInfo(attributes.getSub(), attributes.getName(), attributes.getPicture());
 
+        System.out.println(attributes.getSub());
+        System.out.println(registrationId);
+
         if (registrationId.equals("google")) {
             snsInfo.setSnsType(Social.GOOGLE);
+        }else if (registrationId.equals("naver")){
+            snsInfo.setSnsType(Social.NAVER);
+        }else if (registrationId.equals("kakao")){
+            snsInfo.setSnsType(Social.KAKAO);
         }
         Member member;
 
@@ -102,12 +115,14 @@ public class CustomOAuth2Service implements OAuth2UserService<OAuth2UserRequest,
         snsInfoRepository.save(snsInfo);
     }
 
+    //local login or oauth2 login check
     public Member authenticationMember(Authentication authentication) {
         Member member;
         if (memberService.member(authentication.getName()).isEmpty()) {
             OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-            Map<String, Object> attributes = token.getPrincipal().getAttributes();
-            Optional<SNSInfo> flag = snsInfo((String) attributes.get("sub"));
+            /*Map<String, Object> attributes = token.getPrincipal().getAttributes();*/
+            Optional<SNSInfo> flag = snsInfo(token.getName());
+
             member = memberService.member(flag.get().getMember().getId()).get();
         } else {
             member = memberService.member(authentication.getName()).get();
