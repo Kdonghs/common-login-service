@@ -66,9 +66,7 @@ public class loginController {
         if (!memberService.emailMember(member.getEmail()).isEmpty()){
             Member flag = memberService.emailMember(member.getEmail()).get();
 
-            flag.setPassword(member.getPassword());
-            flag.setAge(member.getAge());
-            flag.setId(member.getId());
+            flag.update(member.getPassword(),member.getAge(),member.getUsername());
 
             loginService.EncodingPassword(flag);
         }else {

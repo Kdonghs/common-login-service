@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "`snsinfo`")
 @NoArgsConstructor
 public class SNSInfo extends BaseTimeEntity {
     @Id
@@ -28,9 +27,17 @@ public class SNSInfo extends BaseTimeEntity {
 
     private String snsProfile;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public SNSInfo update(String name, Social snsType, String snsProfile) {
         this.snsName = name;

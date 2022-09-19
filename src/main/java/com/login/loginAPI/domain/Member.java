@@ -11,12 +11,10 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "`member`")
 @NoArgsConstructor
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "memberID")
     private Long id;
 
     private String username;
@@ -35,6 +33,8 @@ public class Member extends BaseTimeEntity {
     @Lob
     private String description;
 
+    @OneToMany(mappedBy = "member")
+    private List<SNSInfo> snsInfoList = new ArrayList<>();
 
     @Builder
     public Member(String username, String password, String name, Integer age, String email, RoleType roleType) {
@@ -46,8 +46,10 @@ public class Member extends BaseTimeEntity {
         this.roleType = roleType;
     }
 
-    public Member update(String name) {
-        this.name = name;
+    public Member update(String password,Integer age, String username) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
 
         return this;
     }
