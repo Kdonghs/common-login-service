@@ -66,6 +66,10 @@ public class loginController {
         if (!memberService.emailMember(member.getEmail()).isEmpty()){
             Member flag = memberService.emailMember(member.getEmail()).get();
 
+            if (!flag.getUsername().equals(member.getUsername())){
+                loginService.EncodingPassword(member);
+            }
+
             flag.update(member.getPassword(),member.getAge(),member.getUsername());
 
             loginService.EncodingPassword(flag);
@@ -82,6 +86,17 @@ public class loginController {
     public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "username") String username) throws loginController.BadRequestException {
 
         if (memberService.existsByMemberUsername(username) == true) {
+            throw new loginController.BadRequestException("이미 사용중인 아이디 입니다.");
+        } else {
+            return ResponseEntity.ok("사용 가능한 아이디 입니다.");
+        }
+    }
+
+    @PostMapping(value = "/email/check")
+    @ResponseBody
+    public ResponseEntity<?> checkEmailDuplication(@RequestParam(value = "email") String email) throws loginController.BadRequestException {
+
+        if (memberService.existsByMemberUsername(email) == true) {
             throw new loginController.BadRequestException("이미 사용중인 아이디 입니다.");
         } else {
             return ResponseEntity.ok("사용 가능한 아이디 입니다.");

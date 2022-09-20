@@ -74,4 +74,10 @@ public class MemberService {
         return memberRepository.existsByUsername(username);
     }
 
+    @Transactional
+    public boolean existsByMemberEmail(String email){
+
+        return memberRepository.existsByEmail(email);
+    }
+
 }
