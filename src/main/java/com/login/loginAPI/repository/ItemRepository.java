@@ -1,7 +1,6 @@
 package com.login.loginAPI.repository;
 
 import com.login.loginAPI.domain.Item;
-import com.login.loginAPI.domain.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

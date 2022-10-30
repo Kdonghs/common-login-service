@@ -2,8 +2,6 @@ package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
-import com.login.loginAPI.domain.SNSInfo;
-import com.login.loginAPI.domain.Social;
 import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import com.login.loginAPI.service.loginService;
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Controller

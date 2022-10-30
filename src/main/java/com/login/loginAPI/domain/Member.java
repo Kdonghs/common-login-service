@@ -2,11 +2,9 @@ package com.login.loginAPI.domain;
 
 import com.login.loginAPI.entity.BaseTimeEntity;
 import lombok.*;
-import org.hibernate.engine.jdbc.Size;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 

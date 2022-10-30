@@ -1,19 +1,13 @@
 package com.login.loginAPI.controller;
 
 import com.login.loginAPI.domain.Member;
-import com.login.loginAPI.domain.SNSInfo;
 import com.login.loginAPI.service.CustomOAuth2Service;
 import com.login.loginAPI.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class homeController {

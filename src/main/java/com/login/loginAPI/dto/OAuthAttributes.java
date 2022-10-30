@@ -4,7 +4,6 @@ import com.login.loginAPI.domain.Member;
 import com.login.loginAPI.domain.RoleType;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Map;
 

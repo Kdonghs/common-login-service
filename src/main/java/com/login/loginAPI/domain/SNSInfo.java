@@ -2,13 +2,9 @@ package com.login.loginAPI.domain;
 
 import com.login.loginAPI.entity.BaseTimeEntity;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
